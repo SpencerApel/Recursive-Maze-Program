@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #ifndef MAZE
 #define MAZE
