@@ -33,7 +33,6 @@ void fill_matrix(string *matrix, int rows)
             getline(file_in, matrix[i]);//get each line and place them in the according row
         }
     }
-
     file_in.close();//close file
 }
 
@@ -73,8 +72,30 @@ bool find_exit(string *matrix, int x, int y)
 
 bool at_end(string *matrix, int x, int y)
 {
-    //increment through the array, find the index where 'E' is and if
-    //x and y are at the index of 'E' then that is where to end?
+    // Returns true if x and y are the final exit location, 
+    // and false otherwise.
+    int x_sol, y_sol;
+    int size = sizeof(matrix)/sizeof(matrix[0]);//to get the size of rows for loop
+    
+    for (int i = 0; i < size; ++i)//increment through the rows
+    {
+        string column;
+        column = matrix[i];//set the incremented row to string column
+
+        for (int j = 0; j < column.length(); ++j)//increment through the length of column
+        {
+            if (column[j] == 'E')//if the index of column matches E
+            {
+                //this sets the variables of the solution
+                x_sol = i;//x_sol is equal to i because of the 1st for loop
+                y_sol = j;//y_sol is eqyal to j because of the 1st for loop
+            }
+        }
+    }
+    if(x == x_sol && y == y_sol)//if x and y are at the solution coords
+        return true;
+    else
+        return false;
 }
 
 bool valid_move(string *matrix, int x, int y, direction d)

@@ -80,7 +80,7 @@ It should leave a trail of @ signs along the path to the solution.
 Make sure to build your solution with strong emphasis on the pseudocode;
 do not try to code it first, first work out the solution on paper/markerboard.
 **/
-bool find_exit( string *matrix, int x, int y);
+bool find_exit(string *matrix, int x, int y);
 
 
 /**
