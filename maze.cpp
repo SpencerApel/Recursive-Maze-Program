@@ -46,22 +46,22 @@ void print_matrix(string *matrix, int rows)
 void delete_matrix(string *matrix, int rows)
 {
     delete[] matrix;//delete the matrix
-    matrix = NULL;
+    matrix = NULL;//set to NULL for no hanging pointers
 }
 
 void find_start(string *matrix, int rows, int &x, int &y)
 {
-    for (int i = 0; i < rows; ++i)
+    for (int i = 0; i < rows; ++i)//increment through the rows
     {
         string column;
-        column = matrix[i];
+        column = matrix[i];//set the incremented row to string column
 
-        for (int j = 0; j < column.length(); ++j)
+        for (int j = 0; j < column.length(); ++j)//increment through the length of column
         {
-            if (column[j] == 'N')
+            if (column[j] == 'N')//if the index of column matches N
             {
-                x = i;
-                y = j;
+                x = i;//x is equal to i because of the 1st for loop
+                y = j;//y is eqyal to j because of the 1st for loop
             }
         }
     }
