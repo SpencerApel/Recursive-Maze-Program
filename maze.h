@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include <fstream>
-#include <limits>
 
 #ifndef MAZE
 #define MAZE
@@ -10,9 +8,6 @@ using std::cout;
 using std::endl;
 using std::cin;
 using std::string;
-using std::ifstream;
-
-// using namespace std;
 
 
 /*
@@ -49,7 +44,7 @@ Fills the matrix with one line per string in the array.
 Use the getline method.
 Why don't you need to send in cols?
 **/
-void fill_matrix(string *matrix, int rows, ifstream &file_in);
+void fill_matrix(string *matrix, int rows);
 
 
 /**
@@ -81,7 +76,7 @@ It should leave a trail of @ signs along the path to the solution.
 Make sure to build your solution with strong emphasis on the pseudocode;
 do not try to code it first, first work out the solution on paper/markerboard.
 **/
-bool find_exit(string *matrix, int x, int y);
+bool find_exit( string *matrix, int x, int y);
 
 
 /**
