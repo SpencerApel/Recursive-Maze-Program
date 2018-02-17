@@ -83,29 +83,12 @@ void find_start(string *matrix, int rows, int &x, int &y)
 
 bool find_exit(string *matrix, int x, int y) //first iteration of function passing in coords of N's starting pos
 {
-    if (valid_move(matrix, x, y, NORTH) == true) //need to add breaks in all of the if/if else statement to help with multiple ways to go, do the 1st
-    {
-        --x; //moving up; a row index
+    if(at_end(matrix, x, y) == true)
         return true;
-    }
-    else if (valid_move(matrix, x, y, EAST) == true) //NEED TO CHANGE OUTPUT FUNCTION to add @
+    else if(at_end(matrix, x, y) != true)
     {
-        ++y; //moving right a column index
-        return true;
+        //stuff here
     }
-    else if (valid_move(matrix, x, y, SOUTH) == true)
-    {
-        ++x; //moving down a row index
-        return true;
-    }
-    else if (valid_move(matrix, x, y, WEST) == true)
-    {
-        --y; //moving left a column index
-        return true;
-    }
-    //else if()//backtracking
-    else
-        return false;
 }
 
 bool at_end(string *matrix, int x, int y)
@@ -138,48 +121,5 @@ bool valid_move(string *matrix, int x, int y, direction d)
 {
     //check for |, @, and ' '
 
-    if (d == NORTH)
-    {
-        //check if north is clear
-        string column;
-        column = matrix[--x];
-
-        if (column[y] == '|')
-            return false;
-        else if (column[y] == ' ')
-            return true;
-    }
-    else if (d == EAST)
-    {
-        //check if EAST is clear
-        string column;
-        column = matrix[x];
-
-        if (column[++y] == '|')
-            return false;
-        else if (column[++y] == ' ')
-            return true;
-    }
-    else if (d == SOUTH)
-    {
-        string column;
-        column = matrix[++x];
-
-        if (column[y] == '|')
-            return false;
-        else if (column[y] == ' ')
-            return true;
-    }
-    else if (d == WEST)
-    {
-        string column;
-        column = matrix[x];
-
-        if (column[--y] == '|')
-            return false;
-        else if (column[--y] == ' ')
-            return true;
-    }
-    else
-        return false;
+    
 }
