@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <limits>
 
 #ifndef MAZE
 #define MAZE
@@ -11,7 +12,7 @@ using std::cin;
 using std::string;
 using std::ifstream;
 
-//using namespace std;
+// using namespace std;
 
 
 /*
@@ -48,7 +49,7 @@ Fills the matrix with one line per string in the array.
 Use the getline method.
 Why don't you need to send in cols?
 **/
-void fill_matrix(string *matrix, int rows);
+void fill_matrix(string *matrix, int rows, ifstream &file_in);
 
 
 /**
