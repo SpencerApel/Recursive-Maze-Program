@@ -41,7 +41,7 @@ void fill_matrix(string *matrix, int rows)
 
         for (int i = 0; i < rows; i++)
         {
-            getline(file_in, matrix[i]); //fillinf matrix with file_in from text file
+            getline(file_in, matrix[i]); //filling matrix with file_in from text file
         }
         find_start(matrix, rows, x, y);
         find_exit(matrix, x, y);
@@ -81,7 +81,6 @@ void find_start(string *matrix, int rows, int &x, int &y)
             }
         }
     }
-    cout << "(" << x << ", " << y << ")" << endl;
 }
 
 bool find_exit(string *matrix, int x, int y) //first iteration of function passing in coords of N's starting pos
@@ -91,33 +90,39 @@ bool find_exit(string *matrix, int x, int y) //first iteration of function passi
         return true;
 
     //sets the starting position to @
-    matrix[x][y] = 'N';
+    if(matrix[x][y] == ' ')
+        matrix[x][y] = '@';
 
-    //recursive search for out goal
+    //recursive search for our goal
     if (valid_move(matrix, x, y, NORTH) && find_exit(matrix, x - 1, y))
     {
-        matrix[x][y] = '@';
+        if(matrix[x][y] == ' ')
+            matrix[x][y] = '@';
         return true;
     }
-    else if (valid_move(matrix, x, y, SOUTH) && find_exit(matrix, x + 1, y))
+    if (valid_move(matrix, x, y, SOUTH) && find_exit(matrix, x + 1, y))
     {
-        matrix[x][y] = '@';
+        if(matrix[x][y] == ' ')
+            matrix[x][y] = '@';
         return true;
     }
-    else if (valid_move(matrix, x, y, WEST) && find_exit(matrix, x, y - 1))
+    if (valid_move(matrix, x, y, WEST) && find_exit(matrix, x, y - 1))
     {
-        matrix[x][y] = '@';
+        if(matrix[x][y] == ' ')
+            matrix[x][y] = '@';
         return true;
     }
-    else if (valid_move(matrix, x, y, EAST) && find_exit(matrix, x, y + 1))
+    if (valid_move(matrix, x, y, EAST) && find_exit(matrix, x, y + 1))
     {
-        matrix[x][y] = '@';
+        if(matrix[x][y] == ' ')
+            matrix[x][y] = '@';
         return true;
     }
 
     //this line here is meant to print a space when backtracking occurs
-    // matrix[x][y] = ' ';
-    // return false;
+    if(matrix[x][y] == '@')
+        matrix[x][y] = ' ';
+    return false;
 }
 
 //this function returns true if you are at the end of the maze
@@ -125,7 +130,7 @@ bool at_end(string *matrix, int x, int y)
 {
     if (matrix[x][y] == 'E')
     {
-        cout << "Found Exit" << endl;
+        cout << "Map -- Solution found:" << endl;
         return true;
     }
     else
