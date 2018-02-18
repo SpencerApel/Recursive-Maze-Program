@@ -24,7 +24,9 @@ string *build_matrix(int rows)
 void fill_matrix(string *matrix, int rows)
 {
     ifstream file_in("sample_input.txt");
-    int x, y;
+    int x = 0;
+    int y = 0;
+    bool solved = false;
 
     while (file_in)
     {
@@ -42,6 +44,7 @@ void fill_matrix(string *matrix, int rows)
             getline(file_in, matrix[i]);
         }
         find_start(matrix, rows, x, y);
+        find_exit(matrix, x, y);
         print_matrix(matrix, rows);
         cout << endl;
         delete_matrix(matrix, rows);
@@ -79,31 +82,59 @@ void find_start(string *matrix, int rows, int &x, int &y)
         }
     }
     cout << "(" << x << ", " << y << ")" << endl;
+
 }
 
 bool find_exit(string *matrix, int x, int y) //first iteration of function passing in coords of N's starting pos
 {
+    //sets the starting position to @
+    matrix[x][y] = 'N';
+
+    //check if we reached the end of the maze
     if(at_end(matrix, x, y) == true)
         return true;
-    else if(at_end(matrix, x, y) != true)
+
+    //recursive search for out goal
+    if(valid_move(matrix, x, y, NORTH) && find_exit(matrix, x - 1, y))
     {
-        //stuff here
+        matrix[x][y] = '@';
+        return true;
+    }
+    else if(valid_move(matrix, x, y, SOUTH) && find_exit(matrix, x + 1, y))
+    {
+        matrix[x][y] = '@';
+        return true;
+    }
+    else if(valid_move(matrix, x, y, WEST) && find_exit(matrix, x, y - 1))
+    {
+        matrix[x][y] = '@';
+        return true;
+    }
+    else if(valid_move(matrix, x, y, EAST) && find_exit(matrix, x, y + 1))
+    {
+        matrix[x][y] = '@';
+        return true;
+    }
+    else
+    {
+        matrix[x][y] = 'S';   
+        return false;
     }
 }
 
 bool at_end(string *matrix, int x, int y)
 {
-    int x_sol, y_sol;
+    int x_sol = 0;
+    int y_sol = 0;
     int size = sizeof(matrix) / sizeof(matrix[0]); //to get the size of rows for loop
 
     for (int i = 0; i < size; i++) //increment through the rows
     {
-        string column;
-        column = matrix[i]; //set the incremented row to string column
+        string column = matrix[i]; //set the incremented row to string column
 
         for (int j = 0; j < column.length(); j++) //increment through the length of column
         {
-            if (column[j] == 'E') //if the index of column matches E
+            if (matrix[i][j] == 'E') //if the index of column matches E
             {
                 //this sets the variables of the solution
                 x_sol = i; //x_sol is equal to i because of the 1st for loop
@@ -112,14 +143,49 @@ bool at_end(string *matrix, int x, int y)
         }
     }
     if (x == x_sol && y == y_sol) //if x and y are at the solution coords
+    {
+        cout << "FINISHED" << endl;
         return true;
+    }
     else
         return false;
 }
 
 bool valid_move(string *matrix, int x, int y, direction d)
 {
-    //check for |, @, and ' '
+    if (d == NORTH)
+    {
+        //check if north is clear
+        if (matrix[x-1][y] == ' ' || matrix[x-1][y] == 'E')
+            return true;
+        else
+            return false;
+    }
+    else if (d == EAST)
+    {
+        //check if EAST is clear
+        if (matrix[x][y+1] == ' ' || matrix[x][y+1] == 'E')
+            return true;
+        else
+            return false;
+    }
+    else if (d == SOUTH)
+    {
+        if (matrix[x+1][y] == ' ' || matrix[x+1][y] == 'E')
+            return true;
+        else
+            return false;
+    }
+    else if (d == WEST)
+    {
+        string column;
+        column = matrix[x];
 
-    
+        if (matrix[x][y-1] == ' ' || matrix[x][y-1] == 'E')
+            return true;
+        else
+            return false;
+    }
+    else
+        return false;   
 }

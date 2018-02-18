@@ -2,8 +2,8 @@
 
 int main()
 {
-    string *matrix;
-    int rows;
+    string *matrix = NULL;
+    int rows = 0;
 
     fill_matrix(matrix, rows);
 
