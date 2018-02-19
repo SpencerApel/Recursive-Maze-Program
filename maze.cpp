@@ -26,6 +26,8 @@ void fill_matrix(string *matrix, int rows)
     ifstream file_in("sample_input.txt");
     int x = 0;
     int y = 0;
+    int solution = false;
+    int counter = 0;
 
     while (file_in)
     {
@@ -36,6 +38,8 @@ void fill_matrix(string *matrix, int rows)
 
         matrix = build_matrix(rows);
 
+        ++counter;
+
         file_in.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //Grab line until '\n' then toss it
 
         for (int i = 0; i < rows; i++)
@@ -44,7 +48,15 @@ void fill_matrix(string *matrix, int rows)
         }
 
         find_start(matrix, rows, x, y);
-        find_exit(matrix, x, y);
+        solution = find_exit(matrix, x, y);
+        if(solution == true)
+        {
+            cout << "Map " << counter << " -- Solution found:" << endl;
+        }
+        else if(solution == false)
+        {
+            cout << "Map " << counter << " -- Solution not found:" << endl;
+        }
         print_matrix(matrix, rows);
         cout << endl;
         delete_matrix(matrix, rows);
@@ -132,12 +144,10 @@ bool at_end(string *matrix, int x, int y)
 {
     if (matrix[x][y] == 'E')
     {
-        cout << "Solution found:" << endl;
         return true;
     }
     else
     {
-        //cout << "Solution not found:" << endl;
         return false;
     }
 }
